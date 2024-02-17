@@ -19,13 +19,21 @@ public class Player : AgentMono
         rb.freezeRotation = true;
     }
 
-    void FixedUpdate() => Move();
+    //void FixedUpdate() => Move();
 
     protected override void Update()
     {
-        base.Update();
-        Jump();
-        Dash();
+        if (GameManager.Instance.isVideo)
+        {
+            base.Update();
+            Move();
+            Jump();
+            Dash();
+        }
+        else
+        {
+            animator.SetBool("IsRun", false);
+        }
     }
     
 
@@ -38,8 +46,9 @@ public class Player : AgentMono
         if (playerX != 0) animator.SetBool("IsRun", true);
         else 
         {
-            if (isJump != false) animator.SetBool("IsRun", false);
+                if (isJump != false) animator.SetBool("IsRun", false);
         }
+        
     }
 
     void Dash()
