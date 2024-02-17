@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class T : MonoBehaviour
+public class TypingEffect : MonoBehaviour
 {
     [Header("Loading Text")]
     [SerializeField] private TMP_Text loadingText_Title;
@@ -18,6 +18,9 @@ public class T : MonoBehaviour
     [SerializeField] private TMP_Text loadingText_Content_3;
     private string ContentText_3 = "가끔 자각몽을 컨트롤 하지 못해 구체적이고 혐오스러운 악몽을 꾸게 된다고 한다.";
 
+    [Header("Sound")]
+    [SerializeField] private AudioSource audioSource;
+
     private void Start()
     {
         StartCoroutine(_typing());
@@ -25,7 +28,7 @@ public class T : MonoBehaviour
 
     IEnumerator _typing()
     {
-        yield return new WaitForSeconds(2f);
+        audioSource.Play();
 
         for (int i = 0; i <loadingText.Length; i++)
         {
@@ -50,5 +53,7 @@ public class T : MonoBehaviour
             loadingText_Content_3.text = ContentText_3.Substring(0, ++i);
             yield return new WaitForSeconds(0.15f);
         }
+
+        audioSource.Stop();
     }
 }
