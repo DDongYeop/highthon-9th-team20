@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     private AudioSource cameraAudio;
     public Vector2 size, videoSize;
     private bool[] skillCool = new bool[2];
-    private Image[] skillIcon = new Image[2];
+    private Image[] skillIcon = new Image[4];
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
         SpriteRenderer spriteRenderer = videoObject.GetComponent<SpriteRenderer>();
         cameraAudio = GetComponent<AudioSource>();
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 1; i < 3; i++)
         {
             skillIcon[i] = GameObject.Find("UI").transform.GetChild(i).GetComponent<Image>();
         }

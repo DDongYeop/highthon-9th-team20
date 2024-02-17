@@ -8,6 +8,7 @@ public class Player : AgentMono
     private Rigidbody2D rb;
     private bool isJump = true, dash = true;
     private Animator animator;
+    private UnityEngine.UI.Image dashImg;
 
     void Start()
     {
@@ -23,6 +24,8 @@ public class Player : AgentMono
 
         rb = gameObject.AddComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        dashImg = GameObject.Find("UI").transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();
+
 
         rb.gravityScale = 9.8f;
         rb.freezeRotation = true;
@@ -70,15 +73,21 @@ public class Player : AgentMono
 
             rb.AddForce(new Vector2(playerX * speed * x * 150, 0f), ForceMode2D.Force);
 
-            StartCoroutine(DashCool());
+            StartCoroutine(CoolTime(dashImg, 3f));
         }
     }
 
-    IEnumerator DashCool()
+    IEnumerator CoolTime(UnityEngine.UI.Image img, float cool)
     {
-        yield return new WaitForSeconds(5f);
+        while (cool > 1.0f)
+        {
+            cool -= Time.deltaTime; 
+            img.fillAmount = 1.0f / cool;
 
-        dash = true;
+            yield return new WaitForFixedUpdate(); 
+        }
+
+        dash= true;
     }
 
     void Jump()
