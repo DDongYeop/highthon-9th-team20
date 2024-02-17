@@ -12,10 +12,7 @@ public class IdleState : IState
         if (_enemyVisualTrm == null)
             _direction = 1;
         else
-        {
             _direction = (int)_enemyVisualTrm.localScale.x;
-            UnityEngine.Debug.Log(_direction);
-        }
     }
     
     public void UpdateState()
