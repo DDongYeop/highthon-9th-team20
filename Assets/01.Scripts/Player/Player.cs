@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : AgentMono
 {
     private float speed = 5f;
     private float jumpPower = 1000f;
@@ -20,7 +21,11 @@ public class Player : MonoBehaviour
 
     void FixedUpdate() => Move();
 
-    void Update() => Jump();
+    protected override void Update()
+    {
+        base.Update();
+        Jump();
+    }
     
 
     void Move()
@@ -55,5 +60,5 @@ public class Player : MonoBehaviour
             isJump = true;
             animator.SetBool("IsJump", false);
         } 
-    }
+    }    
 }
