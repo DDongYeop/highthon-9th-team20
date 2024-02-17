@@ -12,10 +12,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentMono.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/ArcEnemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/EnemyAttackArea.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/EnemyState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/GhostEnemy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/HostileEnemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/SampleEnemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/State/AttackState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/State/DieState.cs" root0="FORCE_HIGHLIGHTING" />
@@ -23,6 +23,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/State/IState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/Enemy/State/IdleState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Core/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Details/ParallaxEffect.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/InGameUI.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/IntroUI.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@14.0.10/Shaders/2D/Sprite-Lit-Default.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -74,7 +78,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708153397841</updated>
-      <workItem from="1708153399907" duration="17237000" />
+      <workItem from="1708153399907" duration="25644000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="container" style="flex-grow: 1; flex-direction: row; align-items: auto;">
+        <ui:VisualElement name="palyer-area" style="width: 40%; height: 25%; flex-direction: row; align-items: auto;">
+            <ui:VisualElement name="icon" style="width: 192px; height: 192px; margin-bottom: 50px; margin-left: 50px; background-image: url(&quot;project://database/Assets/99.Others/RenderTexture/PlayerRenderTexture.renderTexture?fileID=8400000&amp;guid=066202d2fa56ff645968f9e6e94cca4b&amp;type=2#PlayerRenderTexture&quot;);">
+                <ui:VisualElement name="Frame" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/02.Sprites/UI/PlayerHPBar.png?fileID=2055484621&amp;guid=5930f88ca9b6cbd4e94cfc6e86388a5a&amp;type=3#PlayerHPBar_1&quot;);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="slider" style="margin-bottom: 60px; width: 435px; height: 100px; margin-left: 20px; flex-direction: row;">
+                <ui:VisualElement name="value" style="flex-basis: 100%; background-color: rgb(166, 16, 16);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="hp-slider" style="width: 475px; height: 120px; position: absolute; top: 100px; left: 242px; background-image: url(&quot;project://database/Assets/02.Sprites/UI/PlayerHPBar.png?fileID=708852962&amp;guid=5930f88ca9b6cbd4e94cfc6e86388a5a&amp;type=3#PlayerHPBar_2&quot;);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
