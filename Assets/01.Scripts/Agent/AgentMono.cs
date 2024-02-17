@@ -21,6 +21,7 @@ public class AgentMono : MonoBehaviour
             if (_currentHP <= 0)
             {
                 Debug.Log($"{gameObject.name} is die");
+                Die();
             }
         }
     }
@@ -33,6 +34,11 @@ public class AgentMono : MonoBehaviour
         GroundCheck();
     }
 
+    protected virtual void Die()
+    {
+        
+    }
+    
     private void GroundCheck()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, _groundCheckRayDistance, _whatIsGround);
@@ -44,7 +50,7 @@ public class AgentMono : MonoBehaviour
 
 #if UNITY_EDITOR
     
-    private  void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -_groundCheckRayDistance, 0));

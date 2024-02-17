@@ -63,6 +63,12 @@ public abstract class EnemyMono : AgentMono
         _stateDic[_currentState].UpdateState();
     }
 
+    protected override void Die()
+    {
+        ChangeState(EnemyState.DIE);
+        Destroy(gameObject); // 차후 수정 
+    }
+
     private void EnemyStateChange()
     {
         if (_currentState == EnemyState.DIE)
