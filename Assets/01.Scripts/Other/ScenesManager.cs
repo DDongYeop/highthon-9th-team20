@@ -14,4 +14,14 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.LoadScene("LucidDreamScene");
     }
+
+    public void GameStartScene()
+    {
+        SceneManager.LoadScene("GameStartScene");
+    }
+
+    public void GameQuit()
+    {
+        Application.Quit();
+    }
 }

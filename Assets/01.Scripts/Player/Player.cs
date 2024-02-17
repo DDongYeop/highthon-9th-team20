@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class Player : AgentMono
 {
@@ -102,6 +103,11 @@ public class Player : AgentMono
         }
     }
 
+    void PlayerDeath()
+    {
+        SceneManager.LoadScene("GameOverScene");
+    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.collider.CompareTag("Ground"))
@@ -109,5 +115,10 @@ public class Player : AgentMono
             isJump = true;
             animator.SetBool("IsJump", false);
         } 
+        
+        if (other.collider.CompareTag("Frame"))
+        {
+            PlayerDeath();
+        }
     }    
 }
