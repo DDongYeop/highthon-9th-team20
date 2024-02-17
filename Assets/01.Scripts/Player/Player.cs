@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : AgentMono
 {
@@ -58,7 +59,7 @@ public class Player : AgentMono
         if (playerX != 0) animator.SetBool("IsRun", true);
         else 
         {
-                if (isJump != false) animator.SetBool("IsRun", false);
+            if (isJump != false) animator.SetBool("IsRun", false);
         }
         
     }
@@ -68,6 +69,7 @@ public class Player : AgentMono
         if (Input.GetKeyDown(KeyCode.LeftShift) && dash)
         {
             dash = false;
+            rb.gravityScale = 5.5f;
 
             float x = Mathf.Pow(playerX, 10);
 
@@ -86,7 +88,7 @@ public class Player : AgentMono
 
             yield return new WaitForFixedUpdate(); 
         }
-
+        rb.gravityScale = 9.8f;
         dash= true;
     }
 
