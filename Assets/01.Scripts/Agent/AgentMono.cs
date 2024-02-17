@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -21,4 +22,15 @@ public class AgentMono : MonoBehaviour
         else
             CurrentGround = null;
     }
+
+#if UNITY_EDITOR
+    
+    private  void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -_groundCheckRayDistance, 0));
+        Gizmos.color = Color.white;
+    }
+    
+#endif
 }

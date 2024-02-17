@@ -1,22 +1,35 @@
+using UnityEngine;
+
 public class AttackState : IState
 {
+    private EnemyMono _enemy;
+    private int _dieTrigger = Animator.StringToHash("Attack");
+
+    private float _coolTime;
+    
     public void OnEnterState()
     {
-        //애니메이션 시작 
+        //do nothing 
     }
 
     public void UpdateState()
     {
-        //do nothing
+        _coolTime -= Time.deltaTime;
+        if (_coolTime <= 0)
+        {
+            _enemy.EnemyAnimator.SetTrigger(_dieTrigger);
+            _coolTime = _enemy.AttackCoolTime;
+        }
     }
 
     public void OnExitState()
     {
-        //애니메이션 종료 
+        //do nothing  
     }
 
     public void Setup(EnemyMono enemyMono)
     {
-        
+        _enemy = enemyMono;
+        _coolTime = 0;
     }
 }

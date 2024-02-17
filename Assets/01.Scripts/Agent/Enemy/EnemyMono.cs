@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,6 +14,9 @@ public abstract class EnemyMono : AgentMono
     private bool _isSameGround;
     public float Speed;
 
+    [Header("Attack")] 
+    public float AttackCoolTime;
+
     [Header("AI State")] 
     private EnemyState _currentState;
     private Dictionary<EnemyState, IState> _stateDic = new Dictionary<EnemyState, IState>();
@@ -22,7 +26,7 @@ public abstract class EnemyMono : AgentMono
 
     private void Awake()
     {
-        EnemyAnimator = GetComponent<Animator>();
+        EnemyAnimator = transform.Find("Visual").GetComponent<Animator>();
         
         _stateDic.Add(EnemyState.IDLE, new IdleState());
         _stateDic.Add(EnemyState.FOLLOW, new FollowState());
@@ -84,4 +88,17 @@ public abstract class EnemyMono : AgentMono
         _currentState = changeState;
         _stateDic[_currentState].OnEnterState();
     }
+
+#if UNITY_EDITOR
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _followDistance);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _attackDistance);
+        Gizmos.color = Color.white;
+    }
+    
+#endif
 }
