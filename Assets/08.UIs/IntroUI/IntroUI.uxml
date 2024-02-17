@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/08.UIs/Intro/IntroUI.uss?fileID=7433441132597879392&amp;guid=da629c95fdf9f74419914baec33a3051&amp;type=3#IntroUI" />
+    <ui:VisualElement name="container" style="flex-grow: 1;">
+        <ui:VisualElement name="back-image" picking-mode="Ignore" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/99.Others/UI%20Image/Game%20Start%20Image.png?fileID=21300000&amp;guid=75ef271457f2a664a971c17b2791e9c1&amp;type=3#Game Start Image&quot;);" />
+        <ui:VisualElement name="button-container" picking-mode="Ignore" style="position: absolute; align-items: flex-end; left: 65%; top: 65%; width: 35%; height: 35%; flex-direction: column;">
+            <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-button" class="button" />
+            <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exit-button" class="button" />
+        </ui:VisualElement>
+        <ui:VisualElement picking-mode="Ignore" name="fade" class="fade" style="top: -2px; left: 3px;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -9,15 +9,15 @@ public class AgentMono : MonoBehaviour
     [SerializeField] private float _groundCheckRayDistance;
     [HideInInspector] public string CurrentGround;
 
-    [Header("Health")] 
-    [SerializeField] private int _maxHP;
+    [FormerlySerializedAs("_maxHP")] [Header("Health")] 
+    public int MaxHP;
     [SerializeField] private int _currentHP;
     public int CurrentHP
     {
         get => _currentHP;
         set
         {
-            _currentHP += value;
+            _currentHP = value;
             if (_currentHP <= 0)
             {
                 Debug.Log($"{gameObject.name} is die");
@@ -28,6 +28,11 @@ public class AgentMono : MonoBehaviour
 
     [Header("Other")] 
     public bool IsPlayer;
+
+    protected virtual void Awake()
+    {
+        _currentHP = MaxHP;
+    }
 
     protected virtual void Update()
     {

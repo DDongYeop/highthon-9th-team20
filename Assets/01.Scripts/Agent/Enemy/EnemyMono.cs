@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,14 +22,19 @@ public abstract class EnemyMono : AgentMono
 
     [Header("Visual")] 
     private Transform _visualTrm;
+    private SpriteRenderer _spriteRenderer;
     [HideInInspector] public Animator EnemyAnimator;
 
     [Header("Damage")] 
     public int Damage;
 
+    [Header("Die")] 
+    [SerializeField] private float _blinkingTime;
+
     private void Awake()
     {
         EnemyAnimator = transform.Find("Visual").GetComponent<Animator>();
+        _spriteRenderer = EnemyAnimator.GetComponent<SpriteRenderer>();
         _visualTrm = EnemyAnimator.transform;
         
         _stateDic.Add(EnemyState.IDLE, new IdleState());
@@ -66,9 +72,31 @@ public abstract class EnemyMono : AgentMono
     protected override void Die()
     {
         ChangeState(EnemyState.DIE);
-        Destroy(gameObject); // 차후 수정 
+        StartCoroutine(EnemyDieCo());
     }
 
+    private IEnumerator EnemyDieCo()
+    {
+        int x = 1;
+        int y = 0;
+        
+        for (int i = 0; i < 5; ++i)
+        {
+            float currentTime = 0;
+            while (currentTime <= _blinkingTime)
+            {
+                yield return null;
+                currentTime += Time.deltaTime;
+                float time = currentTime / _blinkingTime;
+                _spriteRenderer.color = new Color(1, 1, 1, Mathf.Lerp(x, y, time));
+            }
+
+            (x, y) = (y, x);
+        }
+        
+        Destroy(gameObject);
+    }
+    
     private void EnemyStateChange()
     {
         if (_currentState == EnemyState.DIE)
