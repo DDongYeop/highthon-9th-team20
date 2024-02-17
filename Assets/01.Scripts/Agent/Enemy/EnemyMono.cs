@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public abstract class EnemyMono : AgentMono
 {
@@ -21,12 +19,14 @@ public abstract class EnemyMono : AgentMono
     private EnemyState _currentState;
     private Dictionary<EnemyState, IState> _stateDic = new Dictionary<EnemyState, IState>();
 
-    [Header("Animation")] 
+    [Header("Visual")] 
+    private Transform _visualTrm;
     [HideInInspector] public Animator EnemyAnimator;
 
     private void Awake()
     {
         EnemyAnimator = transform.Find("Visual").GetComponent<Animator>();
+        _visualTrm = EnemyAnimator.transform;
         
         _stateDic.Add(EnemyState.IDLE, new IdleState());
         _stateDic.Add(EnemyState.FOLLOW, new FollowState());
@@ -80,6 +80,11 @@ public abstract class EnemyMono : AgentMono
         }
         if (_currentState != EnemyState.IDLE)
             ChangeState(EnemyState.IDLE);
+    }
+
+    public void EnemyDirection(int value)
+    {
+        _visualTrm.localScale = new Vector3(value == 1 ? 1 : -1, 1, 1);
     }
 
     public void ChangeState(EnemyState changeState)

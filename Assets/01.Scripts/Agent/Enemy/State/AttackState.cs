@@ -20,6 +20,12 @@ public class AttackState : IState
             _enemy.EnemyAnimator.SetTrigger(_dieTrigger);
             _coolTime = _enemy.AttackCoolTime;
         }
+        else
+        {
+            int dir = Mathf.RoundToInt(GameManager.Instance.Player.transform.position.x - _enemy.transform.position.x);
+            dir = Mathf.Clamp(dir, -1, 1);
+            _enemy.EnemyDirection(dir);
+        }
     }
 
     public void OnExitState()

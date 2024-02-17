@@ -14,6 +14,7 @@ public class FollowState : IState
     {
         int dir = Mathf.RoundToInt(GameManager.Instance.Player.transform.position.x - _enemy.transform.position.x);
         _direction = Mathf.Clamp(dir, -1, 1);
+        _enemy.EnemyDirection(_direction);
     }
     
     public void UpdateState()
