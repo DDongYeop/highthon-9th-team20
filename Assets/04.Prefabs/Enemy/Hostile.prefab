@@ -142,7 +142,7 @@ MonoBehaviour:
     m_Bits: 256
   _groundCheckRayDistance: 0.75
   CurrentGround: 
-  _maxHP: 0
+  _maxHP: 1
   _currentHP: 0
   IsPlayer: 0
   _followDistance: 10
