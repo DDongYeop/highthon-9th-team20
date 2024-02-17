@@ -1,22 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.Collections;
+using System.Transactions;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private SpriteRenderer playerFilpX;
+    private SpriteRenderer playerFlipX;
+    private Transform cameraPos;
 
     void Start()
     {
-        playerFilpX = GetComponent<SpriteRenderer>();
+        playerFlipX = GetComponent<SpriteRenderer>();
+        cameraPos = transform.Find("Camera").GetComponent<Transform>();
     }
 
     void Update()
     {
-        float x = Input.GetAxis("Horizontal");
+        float x = Input.GetAxisRaw("Horizontal");
 
-        playerFilpX.flipX = x == -1 ? true : false;
+        if (x < 0)
+        {
+            playerFlipX.flipX = true;
+        } 
+        else if (x > 0)
+        {
+            playerFlipX.flipX = false;
+        } 
+
+        if (x != 0)
+        {
+            cameraPos.localPosition = new Vector3(transform.localPosition.x,
+                                                  cameraPos.localPosition.y, 
+                                                  cameraPos.localPosition.z);
+        }
     }
 }
