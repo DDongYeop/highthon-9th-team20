@@ -22,12 +22,9 @@ public class IntroUI : MonoBehaviour
         _rootElement = _uiDocument.rootVisualElement;
         _fade = _rootElement.Q<VisualElement>("fade");
         _startBtn = _rootElement.Q<Button>("start-button");
-        _startBtn = _rootElement.Q<Button>("exit-button");
+        _exitBtn = _rootElement.Q<Button>("exit-button");
         
-        _startBtn.RegisterCallback<ClickEvent>(evt => 
-        {
-            StartCoroutine(FadeCo(() => { /*씬이동*/ }));
-        });
+        _startBtn.RegisterCallback<ClickEvent>(evt => StartCoroutine(FadeCo(() => UnityEngine.SceneManagement.SceneManager.LoadScene(1))));
         _exitBtn.RegisterCallback<ClickEvent>(etc => StartCoroutine(FadeCo(Application.Quit)));
     }
 
