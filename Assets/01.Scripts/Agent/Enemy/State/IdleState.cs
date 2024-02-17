@@ -5,10 +5,17 @@ public class IdleState : IState
     private int _direction;
     private EnemyMono _enemy;
     private Transform _enemyTrm;
+    private Transform _enemyVisualTrm;
     
     public void OnEnterState()
     {
-        _direction = 1;
+        if (_enemyVisualTrm == null)
+            _direction = 1;
+        else
+        {
+            _direction = (int)_enemyVisualTrm.localScale.x;
+            UnityEngine.Debug.Log(_direction);
+        }
     }
     
     public void UpdateState()
@@ -30,5 +37,6 @@ public class IdleState : IState
     {
         _enemy = enemyMono;
         _enemyTrm = enemyMono.transform;
+        _enemyVisualTrm = _enemyTrm.Find("Visual").transform;
     }
 }
