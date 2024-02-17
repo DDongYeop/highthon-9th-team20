@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] private int _damage;
     private SpriteRenderer playerFlipX, cameraFlipX, cameraLightFilpX, cameraSprite;
     private Sprite videoSprite;
     private Transform cameraPos, cameraLightPos;
-    private Collider2D hit;
+    private Collider2D[] hit = new Collider2D[10];
     private Vector3 playerPos;
     public Vector2 size, videoSize;
 
@@ -61,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator Picture_Attack(float x)
     {
-        Collider2D hit = Physics2D.OverlapBox(playerPos, size, 0); 
+        hit = Physics2D.OverlapBoxAll(playerPos, size, 0); 
 
         if (x < 0) playerPos = new Vector3(transform.position.x - videoSize.x - 2, transform.position.y, transform.position.z); 
         else if (x > 0) playerPos = new Vector3(transform.position.x + videoSize.x + 2, transform.position.y, transform.position.z);
@@ -69,6 +70,14 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && isVideo != true)
         {
+            foreach (var hit in hit)
+            {
+                if (hit == null)
+                    break;
+                if (hit.TryGetComponent<AgentMono>(out AgentMono agent) && !agent.IsPlayer)
+                    agent.CurrentHP -= _damage;
+            }
+            
             float currentTime = 0;
 
             while (currentTime <= 0.5f)

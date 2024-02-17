@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public abstract class EnemyMono : AgentMono
 {
@@ -13,16 +12,24 @@ public abstract class EnemyMono : AgentMono
     private bool _isSameGround;
     public float Speed;
 
+    [Header("Attack")] 
+    public float AttackCoolTime;
+
     [Header("AI State")] 
     private EnemyState _currentState;
     private Dictionary<EnemyState, IState> _stateDic = new Dictionary<EnemyState, IState>();
 
-    [Header("Animation")] 
+    [Header("Visual")] 
+    private Transform _visualTrm;
     [HideInInspector] public Animator EnemyAnimator;
+
+    [Header("Damage")] 
+    public int Damage;
 
     private void Awake()
     {
-        EnemyAnimator = GetComponent<Animator>();
+        EnemyAnimator = transform.Find("Visual").GetComponent<Animator>();
+        _visualTrm = EnemyAnimator.transform;
         
         _stateDic.Add(EnemyState.IDLE, new IdleState());
         _stateDic.Add(EnemyState.FOLLOW, new FollowState());
@@ -56,6 +63,12 @@ public abstract class EnemyMono : AgentMono
         _stateDic[_currentState].UpdateState();
     }
 
+    protected override void Die()
+    {
+        ChangeState(EnemyState.DIE);
+        Destroy(gameObject); // 차후 수정 
+    }
+
     private void EnemyStateChange()
     {
         if (_currentState == EnemyState.DIE)
@@ -78,10 +91,28 @@ public abstract class EnemyMono : AgentMono
             ChangeState(EnemyState.IDLE);
     }
 
+    public void EnemyDirection(int value)
+    {
+        _visualTrm.localScale = new Vector3(value == 1 ? 1 : -1, 1, 1);
+    }
+
     public void ChangeState(EnemyState changeState)
     {
         _stateDic[_currentState].OnExitState();
         _currentState = changeState;
         _stateDic[_currentState].OnEnterState();
     }
+
+#if UNITY_EDITOR
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _followDistance);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _attackDistance);
+        Gizmos.color = Color.white;
+    }
+    
+#endif
 }

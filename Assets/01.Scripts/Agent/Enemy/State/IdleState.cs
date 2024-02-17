@@ -16,6 +16,7 @@ public class IdleState : IState
         RaycastHit2D hit = Physics2D.Raycast(_enemyTrm.position + new Vector3(_direction, 0, 0), Vector2.down, 2,_enemy.WhatIsGround);
         if (!hit)
             _direction *= -1;
+        _enemy.EnemyDirection(_direction);
 
         _enemyTrm.position += new Vector3(_direction, 0, 0) * (Time.deltaTime * _enemy.Speed);
     }
