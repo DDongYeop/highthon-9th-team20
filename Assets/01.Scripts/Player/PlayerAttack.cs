@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     private AudioSource cameraAudio;
     public Vector2 size, videoSize;
     private bool[] skillCool = new bool[2];
-    private Image[] skillIcon = new Image[4];
+    private Image[] skillIcon = new Image[3];
 
     void Start()
     {
@@ -112,7 +112,7 @@ public class PlayerAttack : MonoBehaviour
                 float time = currentTime / 0.5f;
                 cameraLightFilpX.color = new Color(255, 255, 255, Mathf.Lerp(0.0f, 1.0f, time));
             }
-            StartCoroutine(CoolTime(skillIcon[0], 0, 2f));
+            StartCoroutine(CoolTime(skillIcon[1], 0, 2f));
             cameraLightFilpX.color = new Color(255, 255, 255, 0);
         }
         else 
@@ -131,7 +131,7 @@ public class PlayerAttack : MonoBehaviour
                     
             videoObj.SetActive(true);
             StartCoroutine(videoCool(beforeCamera));
-            StartCoroutine(CoolTime(skillIcon[1], 1, 10f));
+            StartCoroutine(CoolTime(skillIcon[2], 1, 10f));
         }
     }
 
