@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Player : AgentMono
@@ -12,6 +11,16 @@ public class Player : AgentMono
 
     void Start()
     {
+        StartCoroutine(WaitForGameManager());
+    }
+
+    private IEnumerator WaitForGameManager()
+    {
+        while (GameManager.Instance == null)
+        {
+            yield return null;
+        }
+
         rb = gameObject.AddComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 

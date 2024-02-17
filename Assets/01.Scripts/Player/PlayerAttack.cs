@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private int _damage;
+    public int _damage;
     private SpriteRenderer playerFlipX, cameraFlipX, cameraLightFilpX, videoRenderer;
     private GameObject videoObj;
     private Sprite videoSprite;
@@ -18,6 +18,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(WaitForGameManager());
+    }
+
+    private IEnumerator WaitForGameManager()
+    {
+        while (GameManager.Instance == null) yield return null;
         playerFlipX = GetComponent<SpriteRenderer>();
         cameraPos = transform.Find("Camera").GetComponent<Transform>();
         cameraLightPos = transform.Find("Camera Light").GetComponent<Transform>();
@@ -35,15 +41,16 @@ public class PlayerAttack : MonoBehaviour
             skillIcon[i] = GameObject.Find("UI").transform.GetChild(i).GetComponent<Image>();
         }
 
-        if (spriteRenderer != null) 
+        if (spriteRenderer != null)
         {
             videoSprite = spriteRenderer.sprite;
             videoObj.SetActive(false);
         }
         else Debug.LogError("SpriteRenderer X");
-        
+
         for (int i = 0; i < skillCool.Length; i++) { skillCool[i] = true; }
     }
+
 
     void Update()
     {
