@@ -3,11 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class NextScene : MonoBehaviour
 {
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
