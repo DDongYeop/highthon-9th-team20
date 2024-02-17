@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class EnemyMono : AgentMono
 {
@@ -31,11 +32,15 @@ public abstract class EnemyMono : AgentMono
     [Header("Die")] 
     [SerializeField] private float _blinkingTime;
 
+    [Header("Other")] 
+    [HideInInspector] public AudioSource AttackSound;
+
     private void Awake()
     {
         EnemyAnimator = transform.Find("Visual").GetComponent<Animator>();
         _spriteRenderer = EnemyAnimator.GetComponent<SpriteRenderer>();
         _visualTrm = EnemyAnimator.transform;
+        AttackSound = GetComponent<AudioSource>();
         
         _stateDic.Add(EnemyState.IDLE, new IdleState());
         _stateDic.Add(EnemyState.FOLLOW, new FollowState());
