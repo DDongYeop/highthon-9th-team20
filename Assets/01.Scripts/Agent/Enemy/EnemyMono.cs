@@ -23,6 +23,9 @@ public abstract class EnemyMono : AgentMono
     private Transform _visualTrm;
     [HideInInspector] public Animator EnemyAnimator;
 
+    [Header("Damage")] 
+    public int Damage;
+
     private void Awake()
     {
         EnemyAnimator = transform.Find("Visual").GetComponent<Animator>();
