@@ -63,9 +63,9 @@ public class PlayerAttack : MonoBehaviour
     {
         Collider2D hit = Physics2D.OverlapBox(playerPos, size, 0); 
 
-        if (x < 0) playerPos = new Vector3(transform.position.x - (videoSize.x - 2), transform.position.y, transform.position.z); 
-        else if (x > 0) playerPos = new Vector3(transform.position.x + (videoSize.x + 2), transform.position.y, transform.position.z);
-        else playerPos = transform.position;
+        if (x < 0) playerPos = new Vector3(transform.position.x - videoSize.x - 2, transform.position.y, transform.position.z); 
+        else if (x > 0) playerPos = new Vector3(transform.position.x + videoSize.x + 2, transform.position.y, transform.position.z);
+        else playerPos = transform.position; 
 
         if (Input.GetMouseButtonDown(0) && isVideo != true)
         {
