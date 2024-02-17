@@ -17,6 +17,7 @@ public class Player : AgentMono
         animator = GetComponent<Animator>();
 
         rb.gravityScale = 9.8f;
+        rb.freezeRotation = true;
     }
 
     void FixedUpdate() => Move();
