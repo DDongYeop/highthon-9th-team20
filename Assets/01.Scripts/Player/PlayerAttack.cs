@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
-using System.Net.Sockets;
-using Unity.Mathematics;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -13,7 +11,10 @@ public class PlayerAttack : MonoBehaviour
     private Transform cameraPos, cameraLightPos;
     private Collider2D[] hit = new Collider2D[10];
     private Vector3 playerPos;
+    private AudioSource cameraAudio;
     public Vector2 size, videoSize;
+    private bool[] skillCool = new bool[2];
+    private Image[] skillIcon = new Image[2];
 
     void Start()
     {
@@ -27,20 +28,25 @@ public class PlayerAttack : MonoBehaviour
         videoRenderer = transform.Find("Video Light").GetComponent<SpriteRenderer>();
         GameObject videoObject = (GameObject)Resources.Load("04.Prefabs/Video");
         SpriteRenderer spriteRenderer = videoObject.GetComponent<SpriteRenderer>();
+        cameraAudio = GetComponent<AudioSource>();
+
+        for (int i = 0; i < 2; i++)
+        {
+            skillIcon[i] = GameObject.Find("UI").transform.GetChild(i).GetComponent<Image>();
+        }
+
         if (spriteRenderer != null) 
         {
             videoSprite = spriteRenderer.sprite;
             videoObj.SetActive(false);
-        } 
-        else 
-        {
-            Debug.LogError("SpriteRenderer X");
         }
+        else Debug.LogError("SpriteRenderer X");
+        
+        for (int i = 0; i < skillCool.Length; i++) { skillCool[i] = true; }
     }
 
     void Update()
     {
-        
         float x = Input.GetAxisRaw("Horizontal");
         
         StartCoroutine(Picture_Attack(x));
@@ -77,8 +83,12 @@ public class PlayerAttack : MonoBehaviour
         else if (x > 0) playerPos = new Vector3(transform.position.x + videoSize.x + 2, transform.position.y, transform.position.z);
         else playerPos = transform.position;
 
-        if (Input.GetMouseButtonDown(0) && GameManager.Instance.isVideo)
+        if (Input.GetMouseButtonDown(0) && GameManager.Instance.isVideo && skillCool[0])
         {
+            skillCool[0] = false;
+            cameraAudio.volume = 1.0f;
+            cameraAudio.Play();
+
             foreach (var hit in hit)
             {
                 if (hit == null) break;
@@ -95,12 +105,18 @@ public class PlayerAttack : MonoBehaviour
                 float time = currentTime / 0.5f;
                 cameraLightFilpX.color = new Color(255, 255, 255, Mathf.Lerp(0.0f, 1.0f, time));
             }
+            StartCoroutine(CoolTime(skillIcon[0], 0, 2f));
             cameraLightFilpX.color = new Color(255, 255, 255, 0);
         }
-        else cameraLightFilpX.color = new Color(255, 255, 255, 0);
-
+        else 
+        {   
+            cameraLightFilpX.color = new Color(255, 255, 255, 0);
+            cameraAudio.Stop(); 
+        }
+ 
         if (Input.GetMouseButtonDown(1) && GameManager.Instance.isVideo)
         {
+            skillCool[1] = false;
             GameManager.Instance.isVideo = false;
             Sprite beforeCamera = cameraFlipX.sprite;
 
@@ -108,7 +124,21 @@ public class PlayerAttack : MonoBehaviour
                     
             videoObj.SetActive(true);
             StartCoroutine(videoCool(beforeCamera));
+            StartCoroutine(CoolTime(skillIcon[1], 1, 10f));
         }
+    }
+
+    IEnumerator CoolTime(Image img, int n, float cool)
+    {
+        while (cool > 1.0f)
+        {
+            cool -= Time.deltaTime; 
+            img.fillAmount = 1.0f / cool;
+
+            yield return new WaitForFixedUpdate(); 
+        }
+
+        skillCool[n] = true;
     }
 
     IEnumerator videoCool(Sprite s)
