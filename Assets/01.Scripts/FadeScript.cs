@@ -18,13 +18,29 @@ public class FadeScript : MonoBehaviour
     {
         Panel.gameObject.SetActive(true);
         Color alpha = Panel.color;
-        while (alpha.a < 225f)
+        
+        if(alpha.a > 0f)
         {
-            time += Time.deltaTime / F_time;
-            alpha.a = Mathf.Lerp(0, 1, time);
-            Panel.color = alpha;
+            while (alpha.a > 0f)
+            {
+                time += Time.deltaTime / F_time;
+                alpha.a = Mathf.Lerp(1, 0, time);
+                Panel.color = alpha;
+                yield return null;
+            }
+            Panel.gameObject.SetActive(false);
             yield return null;
         }
-        yield return null;
+        else
+        {
+            while (alpha.a < 225f)
+            {
+                time += Time.deltaTime / F_time;
+                alpha.a = Mathf.Lerp(0, 1, time);
+                Panel.color = alpha;
+                yield return null;
+            }
+            yield return null;
+        }  
     }
 }
