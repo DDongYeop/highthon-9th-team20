@@ -145,7 +145,7 @@ MonoBehaviour:
   _maxHP: 1
   _currentHP: 0
   IsPlayer: 0
-  _followDistance: 10
+  _followDistance: 5
   _attackDistance: 1
   WhatIsGround:
     serializedVersion: 2
@@ -154,6 +154,7 @@ MonoBehaviour:
   AttackCoolTime: 2
   EnemyAnimator: {fileID: 0}
   Damage: 0
+  _blinkingTime: 0.1
 --- !u!61 &4381359048973837393
 BoxCollider2D:
   m_ObjectHideFlags: 0
