@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : AgentMono
 {
     private float speed = 5f;
-    private float jumpPower = 1000f;
+    private float jumpPower = 1400f;
     private Rigidbody2D rb;
     private bool isJump = true;
     private Animator animator;
@@ -32,9 +32,8 @@ public class Player : AgentMono
     void Move()
     {
         float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
 
-        transform.Translate(x * speed * Time.deltaTime, y * speed * Time.deltaTime, 0f);
+        transform.Translate(x * speed * Time.deltaTime, 0f, 0f);
 
         if (x != 0) animator.SetBool("IsRun", true);
         else 
