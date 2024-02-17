@@ -18,6 +18,7 @@ public class AttackState : IState
         if (_coolTime <= 0)
         {
             _enemy.EnemyAnimator.SetTrigger(_dieTrigger);
+            _enemy.AttackSound.Play();
             _coolTime = _enemy.AttackCoolTime;
         }
         else
