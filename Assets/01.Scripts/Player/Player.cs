@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 
 public class Player : AgentMono
 {
-    private float speed = 5f;
-    private float jumpPower = 1400f;
+    private float speed = 5f, jumpPower = 1400f, playerX;
     private Rigidbody2D rb;
-    private bool isJump = true;
+    private bool isJump = true, dash = true;
     private Animator animator;
 
     void Start()
@@ -26,22 +25,43 @@ public class Player : AgentMono
     {
         base.Update();
         Jump();
+        Dash();
     }
     
 
     void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal");
+        playerX = Input.GetAxisRaw("Horizontal");
 
-        transform.Translate(x * speed * Time.deltaTime, 0f, 0f);
+        transform.Translate(playerX * speed * Time.deltaTime, 0f, 0f);
 
-        if (x != 0) animator.SetBool("IsRun", true);
+        if (playerX != 0) animator.SetBool("IsRun", true);
         else 
         {
             if (isJump != false) animator.SetBool("IsRun", false);
         }
     }
 
+    void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && dash)
+        {
+            dash = false;
+
+            float x = Mathf.Pow(playerX, 10);
+
+            rb.AddForce(new Vector2(playerX * speed * x * 150, 0f), ForceMode2D.Force);
+
+            StartCoroutine(DashCool());
+        }
+    }
+
+    IEnumerator DashCool()
+    {
+        yield return new WaitForSeconds(5f);
+
+        dash = true;
+    }
 
     void Jump()
     {
