@@ -65,7 +65,7 @@ public class Player : AgentMono
 
     void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.E) && dash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dash)
         {
             dash = false;
 
