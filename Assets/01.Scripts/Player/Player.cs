@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class Player : AgentMono
 {
@@ -26,15 +27,16 @@ public class Player : AgentMono
         rb = gameObject.AddComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         dashImg = GameObject.Find("UI").transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();
+
+
+        rb.gravityScale = 9.8f;
+        rb.freezeRotation = true;
     }
 
     //void FixedUpdate() => Move();
 
     protected override void Update()
     {
-        rb.gravityScale = 9.8f;
-        rb.freezeRotation = true;
-
         if (GameManager.Instance.isVideo)
         {
             base.Update();
@@ -101,6 +103,11 @@ public class Player : AgentMono
         }
     }
 
+    void PlayerDeath()
+    {
+        SceneManager.LoadScene("GameOverScene");
+    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.collider.CompareTag("Ground"))
@@ -108,5 +115,10 @@ public class Player : AgentMono
             isJump = true;
             animator.SetBool("IsJump", false);
         } 
+        
+        if (other.collider.CompareTag("Frame"))
+        {
+            PlayerDeath();
+        }
     }    
 }

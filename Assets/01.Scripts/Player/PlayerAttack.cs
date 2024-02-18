@@ -93,6 +93,8 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && GameManager.Instance.isVideo && skillCool[0])
         {
             skillCool[0] = false;
+            //cameraAudio.volume = 1.0f;
+            //cameraAudio.Play();
 
             foreach (var hit in hit)
             {
@@ -116,6 +118,7 @@ public class PlayerAttack : MonoBehaviour
         else 
         {   
             cameraLightFilpX.color = new Color(255, 255, 255, 0);
+            //cameraAudio.Stop(); 
         }
  
         if (Input.GetMouseButtonDown(1) && GameManager.Instance.isVideo)
