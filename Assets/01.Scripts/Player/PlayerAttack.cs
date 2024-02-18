@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     public Vector2 size, videoSize;
     private bool[] skillCool = new bool[2];
     private Image[] skillIcon = new Image[3];
+    private AudioSource cameraAudio;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class PlayerAttack : MonoBehaviour
         videoRenderer = transform.Find("Video Light").GetComponent<SpriteRenderer>();
         GameObject videoObject = (GameObject)Resources.Load("04.Prefabs/Video");
         SpriteRenderer spriteRenderer = videoObject.GetComponent<SpriteRenderer>();
+        cameraAudio = GetComponent<AudioSource>();
 
         for (int i = 1; i < 3; i++)
         {
@@ -90,6 +92,8 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && GameManager.Instance.isVideo && skillCool[0])
         {
+            cameraAudio.Play();
+
             skillCool[0] = false;
 
             foreach (var hit in hit)
