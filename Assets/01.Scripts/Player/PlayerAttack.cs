@@ -11,7 +11,6 @@ public class PlayerAttack : MonoBehaviour
     private Transform cameraPos, cameraLightPos;
     private Collider2D[] hit = new Collider2D[10];
     private Vector3 playerPos;
-    private AudioSource cameraAudio;
     public Vector2 size, videoSize;
     private bool[] skillCool = new bool[2];
     private Image[] skillIcon = new Image[3];
@@ -34,7 +33,6 @@ public class PlayerAttack : MonoBehaviour
         videoRenderer = transform.Find("Video Light").GetComponent<SpriteRenderer>();
         GameObject videoObject = (GameObject)Resources.Load("04.Prefabs/Video");
         SpriteRenderer spriteRenderer = videoObject.GetComponent<SpriteRenderer>();
-        //cameraAudio = GetComponent<AudioSource>();
 
         for (int i = 1; i < 3; i++)
         {
@@ -48,7 +46,7 @@ public class PlayerAttack : MonoBehaviour
         }
         else Debug.LogError("SpriteRenderer X");
 
-        for (int i = 0; i < skillCool.Length; i++) { skillCool[i] = true; }
+        for (int i = 0; i < skillCool.Length; i++) { skillCool[i] = true; } 
     }
 
 
@@ -93,8 +91,6 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && GameManager.Instance.isVideo && skillCool[0])
         {
             skillCool[0] = false;
-            //cameraAudio.volume = 1.0f;
-            //cameraAudio.Play();
 
             foreach (var hit in hit)
             {
@@ -117,8 +113,7 @@ public class PlayerAttack : MonoBehaviour
         }
         else 
         {   
-            cameraLightFilpX.color = new Color(255, 255, 255, 0);
-            //cameraAudio.Stop(); 
+            cameraLightFilpX.color = new Color(255, 255, 255, 0); 
         }
  
         if (Input.GetMouseButtonDown(1) && GameManager.Instance.isVideo)
