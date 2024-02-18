@@ -27,15 +27,16 @@ public class Player : AgentMono
         rb = gameObject.AddComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         dashImg = GameObject.Find("UI").transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();
+
+
+        rb.gravityScale = 9.8f;
+        rb.freezeRotation = true;
     }
 
     //void FixedUpdate() => Move();
 
     protected override void Update()
     {
-        rb.gravityScale = 9.8f;
-        rb.freezeRotation = true;
-
         if (GameManager.Instance.isVideo)
         {
             base.Update();
